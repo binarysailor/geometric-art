@@ -1,22 +1,22 @@
 package binarysailor.graphics;
 
 
-import binarysailor.graphics.builders.CircleSequenceBuilder;
-import binarysailor.graphics.builders.DrawableSequenceBuilders;
-import binarysailor.graphics.sequences.Sequence;
-import binarysailor.graphics.sequences.Sequences;
-import binarysailor.graphics.shapes.CircleSize;
+import static binarysailor.graphics.sequences.SequenceDecorators.randomDeviations;
+import static binarysailor.graphics.sequences.Sequences.constant;
+import static binarysailor.graphics.sequences.Sequences.gridLocations;
+import static binarysailor.graphics.sequences.Sequences.randomlySwitching;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static binarysailor.graphics.sequences.SequenceDecorators.randomDeviations;
-import static binarysailor.graphics.sequences.Sequences.constant;
-import static binarysailor.graphics.sequences.Sequences.gridLocations;
-import static binarysailor.graphics.sequences.Sequences.randomlySwitching;
+import binarysailor.graphics.builders.CircleSequenceBuilder;
+import binarysailor.graphics.builders.DrawableSequenceBuilders;
+import binarysailor.graphics.sequences.Sequence;
+import binarysailor.graphics.shapes.CircleSize;
 
 public class Generator {
     public static void main(String[] args) throws IOException {

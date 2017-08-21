@@ -2,7 +2,6 @@ package binarysailor.graphics.sequences;
 
 import binarysailor.graphics.shapes.Location;
 
-import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +36,7 @@ public class Sequences {
         };
     }
 
+    @SafeVarargs
     public static <T> RandomSwitchingSequenceBuilder<T> randomlySwitching(final T... values) {
         return new RandomSwitchingSequenceBuilder<T>(values);
     }

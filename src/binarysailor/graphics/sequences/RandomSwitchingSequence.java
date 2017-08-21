@@ -2,13 +2,10 @@ package binarysailor.graphics.sequences;
 
 import binarysailor.graphics.RandomNumbers;
 
-import java.util.Random;
-
 class RandomSwitchingSequence<T> implements Sequence<T> {
 
     private T[] values;
     private double[] thresholds;
-    private Random random = new Random();
 
     RandomSwitchingSequence(T[] values) {
         this.values = values;

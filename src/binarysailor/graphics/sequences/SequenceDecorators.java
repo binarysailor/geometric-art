@@ -1,7 +1,6 @@
 package binarysailor.graphics.sequences;
 
 import binarysailor.graphics.RandomNumbers;
-import binarysailor.graphics.shapes.Location;
 import binarysailor.graphics.shapes.Size;
 
 public class SequenceDecorators {
@@ -18,7 +17,10 @@ public class SequenceDecorators {
                 if (RandomNumbers.getDouble() < probability) {
                     // deviate
                     double deviation = maxFactor * RandomNumbers.getDouble();
-                    return (S)size.scale(1.0 + deviation/100);
+                    @SuppressWarnings("unchecked")
+                    S result = (S)size.scale(1.0 + deviation/100);
+
+                    return result;
                 } else {
                     return size;
                 }
