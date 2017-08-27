@@ -15,4 +15,8 @@ public class Location {
     public int y() {
         return y;
     }
+
+    public Location translate(int dx, int dy) {
+        return new Location(x + dx, y + dy);
+    }
 }
