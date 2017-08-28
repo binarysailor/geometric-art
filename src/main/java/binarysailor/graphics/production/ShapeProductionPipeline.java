@@ -12,6 +12,7 @@ public class ShapeProductionPipeline {
 
     private List<ShapeSpecificationProcessor> processors = new LinkedList<>();
     private ShapeFactory shapeFactory;
+    @SuppressWarnings("unused")
     private int gridWidth, gridHeight;
     private int defaultShapeWidth, defaultShapeHeight;
     private GridLocationCounter locationCounter;

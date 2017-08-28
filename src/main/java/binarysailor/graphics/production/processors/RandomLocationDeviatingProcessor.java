@@ -3,8 +3,6 @@ package binarysailor.graphics.production.processors;
 import binarysailor.graphics.RandomNumbers;
 import binarysailor.graphics.production.ShapeSpecification;
 import binarysailor.graphics.production.ShapeSpecificationProcessor;
-import binarysailor.graphics.production.Size;
-import binarysailor.graphics.shapes.Location;
 
 public class RandomLocationDeviatingProcessor implements ShapeSpecificationProcessor {
     private final double probability;
