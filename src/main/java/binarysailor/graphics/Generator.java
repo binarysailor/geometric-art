@@ -3,6 +3,7 @@ package binarysailor.graphics;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,10 +16,12 @@ import binarysailor.graphics.production.processors.RandomSizeDeviatingProcessor;
 import binarysailor.graphics.production.processors.RandomSwitchingColourProcessor;
 
 public class Generator {
+
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1080;
+
     public static void main(String[] args) throws IOException {
-        int w = 1920;
-        int h = 1080;
-        Image image = new Image(new Dimension(w, h));
+        Image image = new Image(new Dimension(WIDTH, HEIGHT));
 
         Iterable<Drawable> drawables = generateSequence();
 
@@ -26,13 +29,12 @@ public class Generator {
             drawable.draw(image);
         }
 
-        DateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
-        String fileName = String.format("image-%s.png", df.format(new Date()));
-        image.save("D:/" + fileName);
+        image.save(generateFilePath());
     }
 
     private static Iterable<Drawable> generateSequence() {
-        ShapeProductionPipeline pipeline = new ShapeProductionPipeline(new CircleFactory(), 10, 6, 1920.0/1080);
+        ShapeProductionPipeline pipeline = new ShapeProductionPipeline(new CircleFactory(), 10, 6, ((double)WIDTH)/1080);
+
         pipeline.addProcessor(new RandomSizeDeviatingProcessor(0.4, 0.1));
         pipeline.addProcessor(new RandomLocationDeviatingProcessor(0.3, 30));
         pipeline.addProcessor(new RandomSwitchingColourProcessor(
@@ -49,5 +51,20 @@ public class Generator {
         } while (drawableOptional.isPresent());
 
         return drawables;
+    }
+
+    private static String generateFilePath() {
+        DateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
+        String fileName = String.format("geometric-art-%s.png", df.format(new Date()));
+        String directory = System.getProperty("user.home");
+        if (directory == null) {
+            directory = ".";
+        }
+
+        File subdirectory = new File(directory + File.separatorChar + "geometric-art");
+        if (!subdirectory.exists()) {
+            subdirectory.mkdirs();
+        }
+        return subdirectory.getPath() + File.separatorChar + fileName;
     }
 }
