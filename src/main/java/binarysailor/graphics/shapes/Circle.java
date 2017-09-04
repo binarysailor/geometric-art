@@ -3,8 +3,8 @@ package binarysailor.graphics.shapes;
 import java.awt.geom.Ellipse2D;
 
 import binarysailor.graphics.production.Colors;
-import binarysailor.graphics.production.GridCell;
 import binarysailor.graphics.production.ShapeProcessor;
+import binarysailor.graphics.production.grid.GridCell;
 
 public class Circle extends ShapeBase {
 

@@ -1,5 +1,7 @@
 package binarysailor.graphics.production;
 
+import binarysailor.graphics.production.grid.GridCell;
+
 public class ShapeSpecification {
 
     private double sizeFactor = 1.0;

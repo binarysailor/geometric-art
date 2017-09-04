@@ -1,18 +1,18 @@
-package binarysailor.graphics.production;
+package binarysailor.graphics.production.grid;
 
 import binarysailor.graphics.shapes.Location;
 
 public class GridCell {
-    private final Grid grid;
-    private final int x, y;
+    private final int x, y, width, height;
     private final Location topLeft, centre;
 
-    GridCell(Grid grid, int x, int y) {
-        this.grid = grid;
+    GridCell(Grid grid, int x, int y, int left, int top, int cellWidth, int cellHeight) {
         this.x = x;
         this.y = y;
-        this.topLeft = new Location(x * grid.getCellWidth(), y * grid.getCellHeight());
-        this.centre = topLeft.translate(getWidth()/2, getHeight()/2);
+        this.width = cellWidth;
+        this.height = cellHeight;
+        this.topLeft = new Location(left, top);
+        this.centre = topLeft.translate(cellWidth/2, cellHeight/2);
     }
 
     public int getPositionX() {
@@ -24,11 +24,11 @@ public class GridCell {
     }
 
     public int getWidth() {
-        return grid.getCellWidth();
+        return width;
     }
 
     public int getHeight() {
-        return grid.getCellHeight();
+        return height;
     }
 
     public int getSmallerSidePx() {

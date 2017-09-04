@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import binarysailor.graphics.Image;
 import binarysailor.graphics.production.Colors;
-import binarysailor.graphics.production.GridCell;
+import binarysailor.graphics.production.grid.GridCell;
 
 public abstract class ShapeBase implements Shape {
 

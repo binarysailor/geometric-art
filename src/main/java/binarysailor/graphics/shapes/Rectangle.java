@@ -1,8 +1,8 @@
 package binarysailor.graphics.shapes;
 
 import binarysailor.graphics.production.Colors;
-import binarysailor.graphics.production.GridCell;
 import binarysailor.graphics.production.ShapeProcessor;
+import binarysailor.graphics.production.grid.GridCell;
 
 public class Rectangle extends ShapeBase {
 

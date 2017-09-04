@@ -7,15 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.Optional;
 
-import binarysailor.graphics.production.CircleFactory;
 import binarysailor.graphics.production.Colors;
-import binarysailor.graphics.production.Grid;
+import binarysailor.graphics.production.RectangleFactory;
 import binarysailor.graphics.production.ShapeProductionPipeline;
+import binarysailor.graphics.production.grid.EqualSizedCellGrid;
+import binarysailor.graphics.production.grid.Grid;
 import binarysailor.graphics.production.processors.RandomAspectRatioDeviatingProcessor;
 import binarysailor.graphics.production.processors.RandomDeactivationProcessor;
 import binarysailor.graphics.production.processors.RandomLocationDeviatingProcessor;
@@ -32,22 +30,21 @@ public class Generator {
     public static void main(String[] args) throws IOException {
         Image image = new Image(new Dimension(WIDTH, HEIGHT));
 
-        Iterable<Shape> drawables = generateSequence();
+        Iterable<Shape> shapes = generateShapes();
 
-
-        for (Shape drawable : drawables) {
-            if (drawable.isActive()) {
-                drawable.draw(image);
+        for (Shape shape : shapes) {
+            if (shape.isActive()) {
+                shape.draw(image);
             }
         }
 
         image.save(generateFilePath());
     }
 
-    private static Iterable<Shape> generateSequence() {
-        Grid grid = new Grid(12, 9, WIDTH, HEIGHT);
-        ShapeProductionPipeline pipeline = new ShapeProductionPipeline(new CircleFactory(), grid);
+    private static Iterable<Shape> generateShapes() {
+        Grid grid = new EqualSizedCellGrid(20, 15, WIDTH, HEIGHT, 0, 0);
 
+        ShapeProductionPipeline pipeline = new ShapeProductionPipeline(new RectangleFactory(), grid);
         pipeline.addProcessor(new RandomSizeDeviatingProcessor(1.0, -0.45, -0.3));
         pipeline.addProcessor(new RandomLocationDeviatingProcessor(0.3, 12.0, 3.0));
         pipeline.addProcessor(new RandomRotationDeviatingProcessor(0.8, 0.2));
@@ -61,16 +58,7 @@ public class Generator {
                         },
                 new double[] { 0.3, 0.5, 0.2 }));
 
-        Collection<Shape> drawables = new LinkedList<>();
-        Optional<Shape> drawableOptional;
-        do {
-            drawableOptional = pipeline.produce();
-            if (drawableOptional.isPresent()) {
-                drawables.add(drawableOptional.get());
-            }
-        } while (drawableOptional.isPresent());
-
-        return drawables;
+        return pipeline.produceAll();
     }
 
     private static String generateFilePath() {
