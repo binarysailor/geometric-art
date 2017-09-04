@@ -1,30 +1,31 @@
 package binarysailor.graphics.production.processors;
 
-import binarysailor.graphics.RandomNumbers;
-import binarysailor.graphics.production.ShapeSpecification;
-import binarysailor.graphics.production.ShapeSpecificationProcessor;
-import binarysailor.graphics.production.Size;
+import binarysailor.graphics.RandomUtils;
+import binarysailor.graphics.shapes.Shape;
 
-public class RandomSizeDeviatingProcessor implements ShapeSpecificationProcessor {
+public class RandomSizeDeviatingProcessor extends ShapeProcessorBase {
 
-    private final double probability, maxFactor;
+    private final double probability, deviationLowerBound, deviationUpperBound;
 
-    public RandomSizeDeviatingProcessor(double probability, double maxFactor) {
-        this.probability = probability;
-        this.maxFactor = maxFactor;
+    public RandomSizeDeviatingProcessor(double triggerProbability, double lowerBound, double upperBound) {
+        this.probability = triggerProbability;
+        this.deviationUpperBound =  lowerBound;
+        this.deviationLowerBound =  upperBound;
+    }
+
+    public RandomSizeDeviatingProcessor(double triggerProbability, double maxDeviation) {
+        this(triggerProbability, -Math.abs(maxDeviation), Math.abs(maxDeviation));
     }
 
     @Override
-    public ShapeSpecification process(final ShapeSpecification specification) {
-        if (RandomNumbers.getDouble() < probability) {
+    public Shape process(final Shape shape) {
+        if (RandomUtils.getBoolean(probability)) {
             // deviate
-            double factor = 1.0 + maxFactor * RandomNumbers.getDouble();
-
-            Size size = specification.getSize();
-            size.setWidth((int)(size.getWidth() * factor));
-            size.setHeight((int)(size.getHeight() * factor));
+            double factor = 1.0 + RandomUtils.getBetween(deviationLowerBound, deviationUpperBound);
+            factor = Math.max(factor, 0.0);
+            shape.setSizeFactor(factor);
         }
 
-        return specification;
+        return shape;
     }
 }

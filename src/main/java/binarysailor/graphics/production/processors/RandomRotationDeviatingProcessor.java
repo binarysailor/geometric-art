@@ -1,10 +1,9 @@
 package binarysailor.graphics.production.processors;
 
-import binarysailor.graphics.RandomNumbers;
-import binarysailor.graphics.production.ShapeSpecification;
-import binarysailor.graphics.production.ShapeSpecificationProcessor;
+import binarysailor.graphics.RandomUtils;
+import binarysailor.graphics.shapes.Shape;
 
-public class RandomRotationDeviatingProcessor implements ShapeSpecificationProcessor {
+public class RandomRotationDeviatingProcessor extends ShapeProcessorBase {
 
     private final double probability;
     private final double maxRotation;
@@ -15,14 +14,13 @@ public class RandomRotationDeviatingProcessor implements ShapeSpecificationProce
     }
 
     @Override
-    public ShapeSpecification process(final ShapeSpecification specification) {
-        if (RandomNumbers.getDouble() < probability) {
+    public Shape process(final Shape shape) {
+        if (RandomUtils.getBoolean(probability)) {
             // deviate
-            double rotation = maxRotation * (RandomNumbers.getDouble() - 0.5);
-            specification.setRotation(rotation);
+            shape.setRotation(RandomUtils.getBetweenMinusAndPlus(maxRotation));
         }
 
-        return specification;
+        return shape;
     }
 
 }

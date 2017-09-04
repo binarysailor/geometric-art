@@ -1,19 +1,14 @@
 package binarysailor.graphics.production;
 
-import binarysailor.graphics.Drawable;
 import binarysailor.graphics.shapes.Rectangle;
+import binarysailor.graphics.shapes.Shape;
 
 
 public class RectangleFactory implements ShapeFactory {
 
     @Override
-    public Drawable createShape(ShapeSpecification specification) {
-        Size size = specification.getSize();
-        return new Rectangle(
-                specification.getLocation(), 
-                size.getWidth(), size.getHeight(), 
-                specification.getRotation(), 
-                specification.getColour());
+    public Shape createShape(ShapeSpecification s) {
+        return new Rectangle(s.getGridCell(), s.getSizeFactor(), s.getOffsetFactorX(), s.getOffsetFactorY(), s.getRotation(), s.getColors(), 1.0);
     }
 
 }

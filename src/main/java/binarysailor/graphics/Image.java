@@ -1,11 +1,12 @@
 package binarysailor.graphics;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Image {
 
@@ -17,9 +18,6 @@ public class Image {
         this.size = size;
         this.bufferedImage = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
         this.graphics = (Graphics2D) bufferedImage.getGraphics();
-
-        double factor = Math.max(size.getWidth(), size.getHeight()) / 1000;
-        this.graphics.transform(new AffineTransform(factor, 0, 0, factor, 0, 0));
     }
 
     public Graphics2D getGraphics() {

@@ -1,28 +1,28 @@
 package binarysailor.graphics.production.processors;
 
-import binarysailor.graphics.RandomNumbers;
-import binarysailor.graphics.production.ShapeSpecification;
-import binarysailor.graphics.production.ShapeSpecificationProcessor;
+import binarysailor.graphics.RandomUtils;
+import binarysailor.graphics.shapes.Shape;
 
-public class RandomLocationDeviatingProcessor implements ShapeSpecificationProcessor {
+public class RandomLocationDeviatingProcessor extends ShapeProcessorBase {
     private final double probability;
-    private final int maxShift;
+    private final double maxShiftX, maxShiftY;
 
-    public RandomLocationDeviatingProcessor(double probability, int maxShift) {
+    public RandomLocationDeviatingProcessor(double probability, double maxShiftX, double maxShiftY) {
         this.probability = probability;
-        this.maxShift = maxShift;
+        this.maxShiftX = maxShiftX;
+        this.maxShiftY = maxShiftY;
     }
 
     @Override
-    public ShapeSpecification process(final ShapeSpecification specification) {
-        if (RandomNumbers.getDouble() < probability) {
+    public Shape process(Shape shape) {
+        if (RandomUtils.getBoolean(probability)) {
             // deviate
-            int shiftX = (int)(maxShift * (RandomNumbers.getDouble() - 0.5));
-            int shiftY = (int)(maxShift * (RandomNumbers.getDouble() - 0.5));
-
-            specification.setLocation(specification.getLocation().translate(shiftX, shiftY));
+            double shiftX = RandomUtils.getBetweenMinusAndPlus(maxShiftX);
+            shape.setXOffsetFactor(shiftX);
+            double shiftY = RandomUtils.getBetweenMinusAndPlus(maxShiftY);
+            shape.setYOffsetFactor(shiftY);
         }
 
-        return specification;
+        return shape;
     }
 }

@@ -1,21 +1,24 @@
 package binarysailor.graphics.production.processors;
 
-import binarysailor.graphics.production.ShapeSpecification;
-import binarysailor.graphics.production.ShapeSpecificationProcessor;
+import binarysailor.graphics.production.Colors;
+import binarysailor.graphics.shapes.Shape;
 
-import java.awt.*;
+public class RandomSwitchingColourProcessor extends ShapeProcessorBase {
 
-public class RandomSwitchingColourProcessor implements ShapeSpecificationProcessor {
+    private final RandomSwitch<Colors> randomSwitch;
 
-    private final RandomSwitch<Color> randomSwitch;
-
-    public RandomSwitchingColourProcessor(Color[] colours, double[] probabilities) {
-        this.randomSwitch = new RandomSwitch<>(colours, probabilities);
+    public RandomSwitchingColourProcessor(Colors[] colors, double[] probabilities) {
+        this.randomSwitch = new RandomSwitch<>(colors, probabilities);
     }
 
     @Override
-    public ShapeSpecification process(final ShapeSpecification specification) {
-        specification.setColour(randomSwitch.getNextValue());
-        return specification;
+    public Shape process(Shape shape) {
+        Colors colors = randomSwitch.getNextValue();
+
+        Colors target = shape.getColors();
+        target.setOutlineColor(colors.getOutlineColor());
+        target.setPaintColor(colors.getPaintColor());
+
+        return shape;
     }
 }

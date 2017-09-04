@@ -1,25 +1,29 @@
 package binarysailor.graphics.shapes;
 
-import binarysailor.graphics.*;
-import binarysailor.graphics.Image;
+import java.awt.geom.Ellipse2D;
 
-import java.awt.*;
+import binarysailor.graphics.production.Colors;
+import binarysailor.graphics.production.GridCell;
+import binarysailor.graphics.production.ShapeProcessor;
 
-public class Circle implements Drawable {
-    private Color colour;
-    private int r;
-    private Location center;
+public class Circle extends ShapeBase {
 
-    public Circle(final Color colour, final int r, final Location center) {
-        this.colour = colour;
-        this.r = r;
-        this.center = center;
+    public Circle(GridCell cell, double sizeFactor, double xOffsetFactor, double yOffsetFactor, double angle, Colors colors) {
+        super(cell, sizeFactor, xOffsetFactor, yOffsetFactor,angle, colors);
     }
 
     @Override
-    public void draw(final Image target) {
-        Graphics2D graphics = target.getGraphics();
-        graphics.setColor(colour);
-        graphics.fillOval(center.x() - r, center.y() - r, 2*r, 2*r);
+    protected java.awt.Shape createShape() {
+        GridCell cell = getCell();
+        Location cellCentre = cell.getCentre();
+        double sizeFactor = getSizeFactor();
+        double left = cellCentre.x() - sizeFactor * cell.getWidth() / 2;
+        double top = cellCentre.y() - sizeFactor * cell.getHeight() / 2;
+        return new Ellipse2D.Double(left, top, sizeFactor*cell.getWidth(), sizeFactor*cell.getHeight());
+    }
+
+    @Override
+    public Shape accept(ShapeProcessor processor) {
+        return processor.process(this);
     }
 }

@@ -1,6 +1,6 @@
 package binarysailor.graphics.production.processors;
 
-import binarysailor.graphics.RandomNumbers;
+import binarysailor.graphics.RandomUtils;
 
 /**
  * Given a set of N values and N probabilities, returns random one of the values each time,
@@ -16,7 +16,7 @@ class RandomSwitch<T> {
     }
 
     T getNextValue() {
-        double rnd = RandomNumbers.getDouble();
+        double rnd = RandomUtils.getDouble();
         double accum = 0.0;
         int i = 0;
         while (i < values.length) {

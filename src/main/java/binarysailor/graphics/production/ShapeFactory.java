@@ -1,7 +1,7 @@
 package binarysailor.graphics.production;
 
-import binarysailor.graphics.Drawable;
+import binarysailor.graphics.shapes.Shape;
 
 public interface ShapeFactory {
-    Drawable createShape(ShapeSpecification specification);
+    Shape createShape(ShapeSpecification specification);
 }

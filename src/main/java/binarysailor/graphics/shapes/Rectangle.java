@@ -1,39 +1,40 @@
 package binarysailor.graphics.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import binarysailor.graphics.production.Colors;
+import binarysailor.graphics.production.GridCell;
+import binarysailor.graphics.production.ShapeProcessor;
 
-import binarysailor.graphics.Drawable;
-import binarysailor.graphics.Image;
+public class Rectangle extends ShapeBase {
 
-public class Rectangle implements Drawable {
+    private double aspectRatio; // width / height
 
-    private Color colour;
-    private Location topLeft;
-    private int width, height;
-    private double angle;
+    public Rectangle(GridCell cell, double sizeFactor, double xOffsetFactor, double yOffsetFactor, double rotation, Colors colors, double aspectRatio) {
+        super(cell, sizeFactor, xOffsetFactor, yOffsetFactor, rotation, colors);
+        this.aspectRatio = aspectRatio;
+    }
 
-    public Rectangle(Location topLeft, int width, int height, double angle, Color colour) {
-        this.topLeft = topLeft;
-        this.width = width;
-        this.height = height;
-        this.angle = angle;
-        this.colour = colour;
+    public double getAspectRatio() {
+        return aspectRatio;
+    }
+
+    public void setAspectRatio(double aspectRatio) {
+        this.aspectRatio = aspectRatio;
     }
 
     @Override
-    public void draw(Image target) {
-        Graphics2D graphics = target.getGraphics();
-        AffineTransform transform = graphics.getTransform();
-        graphics.rotate(angle, topLeft.x() + width/2, topLeft.y() + height/2 );
-        graphics.setPaint(colour);
-        graphics.fillRect(topLeft.x(), topLeft.y(), width, height);
-        graphics.setStroke(new BasicStroke(0.5f));
-        graphics.setColor(Color.black); // stroke
-        graphics.drawRect(topLeft.x(), topLeft.y(), width, height);
-        graphics.setTransform(transform);
+    protected java.awt.Shape createShape() {
+        int cellWidth = getCell().getWidth();
+        int cellHeight = getCell().getHeight();
+        double width = (int)(cellWidth * getSizeFactor());
+        double height = width / aspectRatio;
+        int top = getCell().getTopLeft().y() + (int)((cellHeight - height) / 2);
+        int left = getCell().getTopLeft().x() + (int)((cellWidth - width) / 2);
+
+        return new java.awt.Rectangle(left, top, (int)width, (int)height);
     }
 
+    @Override
+    public Shape accept(ShapeProcessor processor) {
+        return processor.process(this);
+    }
 }
