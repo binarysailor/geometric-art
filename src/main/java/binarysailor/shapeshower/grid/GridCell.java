@@ -6,7 +6,7 @@ public class GridCell {
     private final int x, y, width, height;
     private final Location topLeft, centre;
 
-    GridCell(Grid grid, int x, int y, int left, int top, int cellWidth, int cellHeight) {
+    GridCell(int x, int y, int left, int top, int cellWidth, int cellHeight) {
         this.x = x;
         this.y = y;
         this.width = cellWidth;

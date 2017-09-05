@@ -11,8 +11,8 @@ public class EqualSizedCellGrid implements Grid {
     public EqualSizedCellGrid(int cellCountX, int cellCountY, int canvasWidth, int canvasHeight, int offsetX, int offsetY) {
         this.cellCountX = cellCountX;
         this.cellCountY = cellCountY;
-        this.cellWidth = (int) Math.round((double) canvasWidth / cellCountX);
-        this.cellHeight = (int) Math.round((double) canvasHeight / cellCountY);
+        this.cellWidth = canvasWidth / cellCountX;
+        this.cellHeight = canvasHeight / cellCountY;
         this.xOffset = offsetX;
         this.yOffset = offsetY;
     }
