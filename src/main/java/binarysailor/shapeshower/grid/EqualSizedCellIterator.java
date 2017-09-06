@@ -46,6 +46,8 @@ class EqualSizedCellIterator implements Iterator<GridCell> {
     }
 
     private GridCell createCell(int x, int y) {
-        return new GridCell(x, y, grid.getXOffset() + x*grid.getCellWidth(), grid.getYOffset() + y*grid.getCellHeight(), grid.getCellWidth(), grid.getCellHeight());
+        int left = grid.getOffsetX() + x*grid.getCellWidth();
+        int top = grid.getOffsetY() + y*grid.getCellHeight();
+        return new GridCell(x, y, left, top, grid.getCellWidth(), grid.getCellHeight());
     }
 }

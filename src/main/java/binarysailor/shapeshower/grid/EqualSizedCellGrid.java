@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class EqualSizedCellGrid implements Grid {
 
-    private final int xOffset, yOffset;
+    private final int offsetX, offsetY;
     private final int cellCountX, cellCountY;
     private final int cellWidth, cellHeight;
 
@@ -13,8 +13,8 @@ public class EqualSizedCellGrid implements Grid {
         this.cellCountY = cellCountY;
         this.cellWidth = canvasWidth / cellCountX;
         this.cellHeight = canvasHeight / cellCountY;
-        this.xOffset = offsetX;
-        this.yOffset = offsetY;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
     }
 
     int getCellCountX() {
@@ -33,12 +33,12 @@ public class EqualSizedCellGrid implements Grid {
         return cellHeight;
     }
 
-    public int getXOffset() {
-        return xOffset;
+    public int getOffsetX() {
+        return offsetX;
     }
 
-    public int getYOffset() {
-        return yOffset;
+    public int getOffsetY() {
+        return offsetY;
     }
 
     public Iterator<GridCell> cellIterator() {
