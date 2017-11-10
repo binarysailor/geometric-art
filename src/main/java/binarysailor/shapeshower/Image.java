@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -28,8 +29,7 @@ public class Image {
         return size;
     }
 
-    public void save(String path) throws IOException {
-        File file = new File(path);
-        ImageIO.write(bufferedImage, "png", file);
+    public void save(OutputStream out) throws IOException {
+        ImageIO.write(bufferedImage, "png", out);
     }
 }

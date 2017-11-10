@@ -19,11 +19,12 @@ public class ShapeProductionPipeline {
 
     private List<ShapeProcessor> processors = new LinkedList<>();
     private ShapeFactory shapeFactory;
+    private Grid grid;
     private Iterator<GridCell> cells;
 
     public ShapeProductionPipeline(final ShapeFactory shapeFactory, final Grid grid) {
         this.shapeFactory = shapeFactory;
-        this.cells = grid.cellIterator();
+        this.grid = grid;
     }
 
     public void addProcessor(ShapeProcessor processor) {
@@ -55,6 +56,7 @@ public class ShapeProductionPipeline {
     }
 
     public Iterable<Shape> produceAll() {
+        reset();
         Collection<Shape> shapes = new LinkedList<>();
         Optional<Shape> shapeOptional;
         do {
@@ -67,7 +69,12 @@ public class ShapeProductionPipeline {
         return shapes;
     }
 
+    private void reset() {
+        cells = grid.cellIterator();
+    }
+
     private ShapeSpecification createSpecification() {
+        assertCellsInitialized();
         if (cells.hasNext()) {
             GridCell cell = cells.next();
             ShapeSpecification specification = new ShapeSpecification(cell, new Colors(Color.black, Color.black));
@@ -75,6 +82,12 @@ public class ShapeProductionPipeline {
         } else {
             // the whole grid has been generated
             return null;
+        }
+    }
+
+    private void assertCellsInitialized() {
+        if (cells == null) {
+            cells = grid.cellIterator();
         }
     }
 
