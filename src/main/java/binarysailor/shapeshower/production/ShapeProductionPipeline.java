@@ -10,10 +10,7 @@ import java.util.Optional;
 import binarysailor.shapeshower.Colors;
 import binarysailor.shapeshower.grid.Grid;
 import binarysailor.shapeshower.grid.GridCell;
-import binarysailor.shapeshower.shapes.Circle;
-import binarysailor.shapeshower.shapes.Rectangle;
-import binarysailor.shapeshower.shapes.Shape;
-import binarysailor.shapeshower.shapes.ShapeVisitor;
+import binarysailor.shapeshower.shapes.*;
 
 public class ShapeProductionPipeline {
 
@@ -114,5 +111,9 @@ public class ShapeProductionPipeline {
             return processor.process(circle);
         }
 
+        @Override
+        public Shape visit(final Triangle triangle) {
+            return processor.process(triangle);
+        }
     }
 }

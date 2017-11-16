@@ -9,7 +9,7 @@ import binarysailor.shapeshower.grid.GridCell;
 public class Circle extends ShapeBase {
 
     public Circle(GridCell cell, double sizeFactor, double xOffsetFactor, double yOffsetFactor, double angle, Colors colors) {
-        super(cell, sizeFactor, xOffsetFactor, yOffsetFactor,angle, colors);
+        super(cell, sizeFactor, xOffsetFactor, yOffsetFactor, angle, colors);
     }
 
     @Override

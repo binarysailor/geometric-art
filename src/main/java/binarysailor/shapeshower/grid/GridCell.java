@@ -42,4 +42,9 @@ public class GridCell {
     public Location getCentre() {
         return centre;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Cell at (%d, %d) with size %d x %d", x, y, width, height);
+    }
 }

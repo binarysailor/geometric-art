@@ -5,4 +5,5 @@ public interface ShapeVisitor {
     Shape visit(Shape shape);
     Shape visit(Rectangle rectangle);
     Shape visit(Circle circle);
+    Shape visit(Triangle triangle);
 }
